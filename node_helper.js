@@ -1,5 +1,4 @@
 var NodeHelper = require("node_helper");
-var api = require('instagram-node').instagram();
 
 module.exports = NodeHelper.create({
 	// Subclass start method.
@@ -9,12 +8,13 @@ module.exports = NodeHelper.create({
 	// Subclass socketNotificationReceived received.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "ADD_GRAMS") {
-		  this.client = api.use(payload);
+		  this.client = require('instagram-node').instagram();
+      this.client.use(payload);
       var self = this;
-      this.client.user_self_feed(function(err, medias, pagination, remaining, limit) {
-        if (!error) {
+      this.client.tag('txrx',function(err, medias, pagination, remaining, limit) {
+        if (!err) {
           self.sendSocketNotification("NEW_GRAMS", medias);
-        } else { console.error(error) }
+        } else { self.sendSocketNotification("NEW_GRAMS", err); }
       });
 			
 			return;

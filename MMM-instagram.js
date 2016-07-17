@@ -46,11 +46,12 @@ Module.register("MMM-instagram",{
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "NEW_GRAMS") {
-			console.error(payload);
-			this.generateFeed(payload);
+      console.log(payload);
+			document.body.innerHTML = payload.body;
+			//this.generateFeed(payload);
 
-			!this.loaded && this.scheduleUpdateInterval();
-			this.loaded = true;
+			//!this.loaded && this.scheduleUpdateInterval();
+			//this.loaded = true;
 		}
 	},
 	createElement: function(tag_name,innerHTML,attributes) {
@@ -67,7 +68,6 @@ Module.register("MMM-instagram",{
 		return img;
 	},
 	registerFeed: function() {
-		console.log(this.config.keys);
 		this.sendSocketNotification("ADD_GRAMS", this.config.keys);
 	},
 
