@@ -1,35 +1,31 @@
-# Module: Tweet Feed
+# Module: MMM-Instagram
 
-The `tweet_feed` displays your twitter home statuses. Copy and paste the module config below and then add your Twitter keys to the key dictionary in the config.
+Display the last 20 photos from instagram, one photo at a time
 
 ## Module Config Example
 
 To use this module, add it to the modules array in the `config/config.js` file:
-````javascript
-modules: [
+```javascript
 	{
-		module: 'twitter',
-		position: 'bottom_bar',	// This can be any of the regions. Best results in center regions.
+		module: 'MMM-instagram',
+		position: 'top_left',
 		config: {
 			keys: {
-				consumer_key: '',
-				consumer_secret: '',
-				access_token_key: '',
-				access_token_secret: '',
+			client_id: 'ae44db6e0bd64ac2b84deb7d9906dd00',
+			client_secret: '69d50082aa754b159667c763b8fc5f14'
 			}
 		}
-	}
-]
-````
+	},
+```
 
-## Create Twitter API Keys
+## Create Instagram API Keys
 
-To use the Twitter API you need to log into twitter and get a private key. This unique code tells twitter that you have given any program posessing these keys permission to access your account.
+1) Log in to instagram at https://www.instagram.com and then in the same browser go to https://www.instagram.com/developer/
 
-1) *Create Application* - Go to https://apps.twitter.com/, login, click "Create new app" (top right corner), and fill out the form. If you don't have a website, just enter "http://example.com".
+2) Click "Manage clients" in the top right corner of the screen. Use http://example.com for the website url and fill out the other fields with dummy information. Submit the form.
 
-2) *Generate Keys* - You should be redirected to the settings page for your new application. Click the "Keys and Access Tokens" tab. Scroll down to "Token Actions" and click "Create Token".
+3) Click "Manage Clients" from the top right (again) and then "Register a new client". Enter dummy information in all the fields. Since you are the only person who will ever see this application the information is irrelevant. Use http://example.com for the "website url" and http://example.com/callback for the "valid redirect url". Submit the form
 
-3) *Configure mirror* - Open your application config file, `config/config.js`, in your favorite code editor. And add the module config from the previou section to the list of modules.
+4) You should now see a page with a "Client ID" and a "Client Secret". Copy and paste these into the module config for the instagram app. With these two keys your raspberry pi can access your instagram account!
 
-4) *Copy Tokens to the Config* - Copy the consumer key, consumer secret, access token, and access token secret to the appropriate places in the module config you copied from step 3.
+5) Save and open the magic mirror with `npm start`. You should your instagram feed now.

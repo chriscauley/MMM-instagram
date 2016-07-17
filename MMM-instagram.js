@@ -1,3 +1,4 @@
+
 /* global Module */
 
 /* Magic Mirror
@@ -7,11 +8,11 @@
  * MIT Licensed.
  */
 
-Module.register("instagram_feed",{
+Module.register("MMM-instagram",{
 
 	// Default module config.
 	defaults: {
-		reloadInterval:  5 * 60 * 1000, // every 5 minutes
+		reloadInterval:	5 * 60 * 1000, // every 5 minutes
 		updateInterval: 10 * 1000,
 		animationSpeed: 2.5 * 1000,
 	},
@@ -38,7 +39,6 @@ Module.register("instagram_feed",{
 
 		this.loaded = false;
 		this.activeItem = 0;
-
 		this.registerFeed();
 
 	},
@@ -46,6 +46,7 @@ Module.register("instagram_feed",{
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "NEW_GRAMS") {
+			console.error(payload);
 			this.generateFeed(payload);
 
 			!this.loaded && this.scheduleUpdateInterval();
@@ -62,44 +63,12 @@ Module.register("instagram_feed",{
 
 	// Override dom generator.
 	getDom: function() {
-    var img = document.createElement("img");
-    img.src="https://instagram.fhou1-1.fna.fbcdn.net/t51.2885-15/e35/13643127_836689663132384_46584688_n.jpg?ig_cache_key=MTI5MzkwOTk0MDI4NDU0NDQ0OQ%3D%3D.2";
-    return img;
-/*
-		var wrapper = document.createElement("div");
-
-		this.tweets = this.tweets || [];
-		if (this.activeItem >= this.tweets.length) {
-		  wrapper.innerHTML = this.translate("LOADING");
-		  wrapper.className = "small dimmed";
-			this.activeItem = 0;
-		}
-
-		if (this.tweets.length == 0) {
-      return wrapper;
-    }
-
-		var tweet = this.tweets[this.activeItem];
-		var top = document.createElement("div");
-		top.appendChild(this.createElement("b","@"+tweet.user.screen_name));
-    
-		var time = document.createElement("span");
-    time.innerHTML = moment(new Date(tweet.created_at)).format("lll");
-    time.className = "small";
-		time.style.paddingLeft = "20px";
-		top.appendChild(time);
-		wrapper.appendChild(top);
-		wrapper.appendChild(this.createElement("p",tweet.text));
-
-		return wrapper;*/
+		var img = document.createElement("img");
+		return img;
 	},
-
-	/* registerFeed()
-	 * starts node_helper for tweet_feed
-	 */
-
 	registerFeed: function() {
-		this.sendSocketNotification("ADD_FEED", this.config.keys);
+		console.log(this.config.keys);
+		this.sendSocketNotification("ADD_GRAMS", this.config.keys);
 	},
 
 	/* registerFeeds()
@@ -116,8 +85,6 @@ Module.register("instagram_feed",{
 	 */
 	scheduleUpdateInterval: function() {
 		var self = this;
-
-		self.updateDom(self.config.animationSpeed);
 
 		setInterval(function() {
 			self.activeItem++;

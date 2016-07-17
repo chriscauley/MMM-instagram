@@ -8,7 +8,7 @@ module.exports = NodeHelper.create({
 
 	// Subclass socketNotificationReceived received.
 	socketNotificationReceived: function(notification, payload) {
-		if (notification === "ADD_FEED") {
+		if (notification === "ADD_GRAMS") {
 		  this.client = api.use(payload);
       var self = this;
       this.client.user_self_feed(function(err, medias, pagination, remaining, limit) {
